@@ -41,11 +41,16 @@
 		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
 		<script>
 			var index = 0
-
+			var bindex = 0
 			        function clickEnter() {
 			            $('input[name=input]').each(function (i) {
 			                if ($(this).is(':focus')) {
 			                    index = i
+			                }
+			            })
+			            $('button[name=button]').each(function (i) {
+			                if ($(this).is(':focus')) {
+			                    bindex = i
 			                }
 			            })
 			        }
@@ -53,11 +58,17 @@
 			        function onEnter() {
 			            if (event.keyCode == 13){
 			                index++
-			                console.log(index);
 			                if (index >= $('input[name=input]').length) {
 			                    index = 0
 			                }
 			                $('input[name=input]').each(function (i) {
+			                    if (i == index) {
+			                        $(this).focus()
+			                    }
+			                })		
+			                console.log(index)
+			                $('button[name=button]').each(function (i) {
+			                console.log('i=' + i)
 			                    if (i == index) {
 			                        $(this).focus()
 			                    }
@@ -72,12 +83,12 @@
 		<div class="container" onkeyup="onEnter()">
 			<p>输入四张牌数字：</p>
 			<p>
-				<input type="text" id="num1" name="input" onclick="clickEnter()"/>
-				<input type="text" id="num2" name="input" onclick="clickEnter()"/>
-				<input type="text" id="num3" name="input" onclick="clickEnter()"/>
-				<input type="text" id="num4" name="input" onclick="clickEnter()"/>
+				<input type="text" id="num1" name="input" type="number" pattern="\d*" onclick="clickEnter()"/>
+				<input type="text" id="num2" name="input" type="number" pattern="\d*" onclick="clickEnter()"/>
+				<input type="text" id="num3" name="input" type="number" pattern="\d*" onclick="clickEnter()"/>
+				<input type="text" id="num4" name="input" type="number" pattern="\d*" onclick="clickEnter()"/>
 			</p>
-			<p><button id="start">计算</button>
+			<p><button id="start" name="button">计算</button>
 			<p>计算结果：</p>
 			<p>
 				<textarea id="reslut"></textarea>

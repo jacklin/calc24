@@ -3,7 +3,6 @@
 	<head>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
 		<meta charset="UTF-8">
-		<!–[if lt IE 9]><script src=”http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js”></script><![endif]–>
 		<title>四张牌算24点</title>
 		<!-- <link rel="shortcut icon" href="/public/img/favicon.png"> -->
 		<style type="text/css">
@@ -15,6 +14,7 @@
 			input{
 				width: 45%;
 				margin:0 auto 10px;
+				line-height: 24px;
 			}
 			.container{
 				width:100%;
@@ -38,16 +38,44 @@
 				text-decoration:underline;
 			}
 		</style>
+		<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+		<script>
+			var index = 0
+
+			        function clickEnter() {
+			            $('input[name=input]').each(function (i) {
+			                if ($(this).is(':focus')) {
+			                    index = i
+			                }
+			            })
+			        }
+
+			        function onEnter() {
+			            if (event.keyCode == 13){
+			                index++
+			                console.log(index);
+			                if (index >= $('input[name=input]').length) {
+			                    index = 0
+			                }
+			                $('input[name=input]').each(function (i) {
+			                    if (i == index) {
+			                        $(this).focus()
+			                    }
+			                })		
+			            }
+			        }
+		</script>
 		<script type="text/javascript" src="calc24.js"></script>
+
 	</head>
 	<body>
-		<div class="container">
+		<div class="container" onkeyup="onEnter()">
 			<p>输入四张牌数字：</p>
 			<p>
-				<input type="text" id="num1"/>
-				<input type="text" id="num2"/>
-				<input type="text" id="num3"/>
-				<input type="text" id="num4"/>
+				<input type="text" id="num1" name="input" onclick="clickEnter()"/>
+				<input type="text" id="num2" name="input" onclick="clickEnter()"/>
+				<input type="text" id="num3" name="input" onclick="clickEnter()"/>
+				<input type="text" id="num4" name="input" onclick="clickEnter()"/>
 			</p>
 			<p><button id="start">计算</button>
 			<p>计算结果：</p>
